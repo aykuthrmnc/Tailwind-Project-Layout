@@ -22,7 +22,7 @@ const Home = () => {
   };
 
   return (
-    <div className="mx-64 rounded bg-gray-700 p-5">
+    <div className="mx-64 rounded bg-gray-200 p-5 dark:bg-gray-700">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input.Control
           id="email"
@@ -67,7 +67,7 @@ const Home = () => {
           label="Onaylıyor musunuz?"
           type="checkbox"
           className="order-first"
-          classNameLabel="text-white"
+          classNameLabel="label"
           classNameContainer="mb-3 flex gap-2"
           register={register}
           errors={errors}
@@ -95,7 +95,6 @@ const Home = () => {
           control={control}
           register={register}
           errors={errors}
-          
         />
         <Input.ReactSelectCreatable
           label="Cinsiyet"
@@ -110,18 +109,18 @@ const Home = () => {
           register={register}
           errors={errors}
           onCreateOption={(e: any) => console.log(e)}
-          
         />
-        {/* <FormInput
-        label="Tarih"
-        type="date"
-        name="date"
-        containerClass={"mb-3"}
-        register={register}
-        errors={errors}
-        control={control}
-      /> */}
-        <button className="button" type="submit">
+        <Input.ReactDatePicker
+          label="Tarih"
+          name="date"
+          className="input"
+          classNameLabel="label"
+          classNameContainer="mb-3"
+          control={control}
+          register={register}
+          errors={errors}
+        />
+        <button className="button mx-auto block" type="submit">
           Kaydet
         </button>
       </form>

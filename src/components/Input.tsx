@@ -1,5 +1,5 @@
-import { HTMLInputTypeAttribute, InputHTMLAttributes } from "react";
-import { Controller, Control as RHFControl } from "react-hook-form";
+import { HTMLInputTypeAttribute } from "react";
+import { Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import BaseReactSelect, { Props as ReactSelectProps } from "react-select";
 import BaseReactSelectAsync, {
@@ -11,6 +11,11 @@ import BaseReactSelectCreatable, {
 import BaseReactSelectAsyncCreatable, {
   AsyncCreatableProps as ReactSelectAsyncCreatableProps,
 } from "react-select/async-creatable";
+import BaseReactDatePicker, { registerLocale } from "react-datepicker";
+import tr from "date-fns/locale/tr";
+import "moment/locale/tr";
+import moment from "moment";
+registerLocale("tr", tr);
 
 // type Props = InputHTMLAttributes<HTMLInputElement> & {
 //   endIcon?: boolean;
@@ -516,6 +521,90 @@ const ReactSelectAsyncCreatable = ({
   );
 };
 
+interface DatePickerProps {
+  id?: string;
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
+  control?: any;
+  register?: any;
+  errors?: any;
+  min?: any;
+  max?: any;
+  [x: string]: any;
+}
+
+const ReactDatePicker = ({
+  id,
+  name,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
+  placeholder = "Seçiniz...",
+  disabled = false,
+  required,
+  control,
+  register,
+  errors,
+  min,
+  max,
+  ...props
+}: DatePickerProps) => {
+  return (
+    <div className={classNameContainer}>
+      {label && <label className={classNameLabel}>{label}</label>}
+
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { onChange, value, ref } }) => (
+          <BaseReactDatePicker
+            disabled={disabled}
+            autoComplete="off"
+            placeholderText={placeholder}
+            wrapperClassName="block"
+            className={`${errors?.name ? "is-invalid" : ""} ${className}`}
+            dateFormat="dd.MM.yyyy"
+            name={name}
+            showYearDropdown
+            showMonthDropdown
+            popperPlacement="bottom"
+            // disabledKeyboardNavigation
+            // value={value}
+            selected={value ? new Date(value) : null}
+            onChange={(e: any) => {
+              onChange(e ? moment(e).format("YYYY-MM-DD") : null);
+              if (props.onChangeValue)
+                props.onChangeValue(e ? moment(e).format("YYYY-MM-DD") : null);
+            }}
+            isClearable
+            locale={tr}
+            minDate={min ? new Date(min) : null}
+            maxDate={max ? new Date(max) : null}
+            // dateFormat="DD-MM-yyyy"
+          />
+        )}
+      />
+
+      {errors && (
+        <ErrorMessage
+          errors={errors}
+          name={name}
+          render={({ message }: any) => (
+            <div className="d-block invalid-feedback">{message}</div>
+          )}
+        />
+      )}
+    </div>
+  );
+};
+
 Input.Control = Control;
 Input.Select = Select;
 // Input.Check = Check;
@@ -524,5 +613,6 @@ Input.ReactSelect = ReactSelect;
 Input.ReactSelectAsync = ReactSelectAsync;
 Input.ReactSelectCreatable = ReactSelectCreatable;
 Input.ReactSelectAsyncCreatable = ReactSelectAsyncCreatable;
+Input.ReactDatePicker = ReactDatePicker;
 
 export default Input;
