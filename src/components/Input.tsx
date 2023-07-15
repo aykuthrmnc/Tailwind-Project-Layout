@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute } from "react";
+import React from "react";
 import { Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import BaseReactSelect, { Props as ReactSelectProps } from "react-select";
@@ -15,6 +15,8 @@ import BaseReactDatePicker, { registerLocale } from "react-datepicker";
 import tr from "date-fns/locale/tr";
 import "moment/locale/tr";
 import moment from "moment";
+import { FaSearch } from "react-icons/fa";
+import classNames from "classnames";
 registerLocale("tr", tr);
 
 // type Props = InputHTMLAttributes<HTMLInputElement> & {
@@ -50,7 +52,7 @@ interface InputProps {
   id?: string;
   name: string;
   label?: any;
-  type?: HTMLInputTypeAttribute;
+  type?: React.HTMLInputTypeAttribute;
   className?: string;
   classNameLabel?: string;
   classNameContainer?: string;
@@ -60,7 +62,6 @@ interface InputProps {
   disabled?: boolean;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const Control = ({
@@ -125,7 +126,7 @@ interface SelectProps {
   disabled?: boolean;
   register?: any;
   errors?: any;
-  [x: string]: any;
+  children: React.ReactNode;
 }
 
 const Select = ({
@@ -176,6 +177,100 @@ const Select = ({
   );
 };
 
+interface SearchProps {
+  id?: string;
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameSearch?: string;
+  classNameContainer?: string;
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+  searchIcon?: any;
+  register?: any;
+  errors?: any;
+}
+
+const Search = ({
+  id,
+  name,
+  label,
+  className,
+  classNameLabel,
+  classNameSearch,
+  classNameContainer,
+  placeholder,
+  disabled,
+  required,
+  searchIcon,
+  register,
+  errors,
+  ...props
+}: SearchProps) => {
+  return (
+    <div className={classNameContainer}>
+      {label && (
+        <label className={classNameLabel} htmlFor={id}>
+          {label} {required && <span className="text-sm text-red-600">*</span>}
+        </label>
+      )}
+      <div className="relative">
+        <div
+          className={classNames(
+            classNameSearch,
+            "pointer-events-none absolute inset-y-0 flex items-center pl-2.5 opacity-70"
+          )}
+        >
+          {searchIcon ?? <FaSearch />}
+        </div>
+        <input
+          id={id}
+          name={name}
+          type="search"
+          className={`${className} pl-8`}
+          placeholder={placeholder}
+          aria-invalid={errors?.[name] ? true : false}
+          disabled={disabled}
+          {...(register && register(name))}
+          {...props}
+        />
+      </div>
+
+      {errors && (
+        <ErrorMessage
+          errors={errors}
+          name={name}
+          render={({ message }: any) => (
+            <div className="text-sm text-red-600">{message}</div>
+          )}
+        />
+      )}
+    </div>
+  );
+};
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string;
+  classNameContainer?: string;
+}
+
+const Button = ({
+  className,
+  classNameContainer,
+  children,
+  ...props
+}: ButtonProps) => {
+  return (
+    <div className={classNameContainer}>
+      <button className={classNames(className, "button")} {...props}>
+        {children}
+      </button>
+    </div>
+  );
+};
+
 interface RSProps extends ReactSelectProps {
   name: string;
   label?: any;
@@ -189,7 +284,6 @@ interface RSProps extends ReactSelectProps {
   control?: any;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const ReactSelect = ({
@@ -221,11 +315,15 @@ const ReactSelect = ({
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <BaseReactSelect
-            className={`react-select react-select-container ${
-              errors?.[name] ? "is-invalid" : ""
-            } ${className}`}
+            className={classNames(
+              className,
+              "react-select react-select-container",
+              {
+                "is-invalid": errors?.[name],
+              }
+            )}
             classNamePrefix="react-select"
             placeholder={placeholder}
             noOptionsMessage={() => "Bulunamadı"}
@@ -272,7 +370,6 @@ interface RSAProps extends ReactSelectAsyncProps<any, any, any> {
   control?: any;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const ReactSelectAsync = ({
@@ -304,11 +401,15 @@ const ReactSelectAsync = ({
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <BaseReactSelectAsync
-            className={`react-select react-select-container ${
-              errors?.[name] ? "is-invalid" : ""
-            } ${className}`}
+            className={classNames(
+              className,
+              "react-select react-select-container",
+              {
+                "is-invalid": errors?.[name],
+              }
+            )}
             classNamePrefix="react-select"
             placeholder={placeholder}
             noOptionsMessage={() => "Bulunamadı"}
@@ -359,7 +460,6 @@ interface RSCProps extends ReactSelectCreatableProps<any, any, any> {
   control?: any;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const ReactSelectCreatable = ({
@@ -391,11 +491,15 @@ const ReactSelectCreatable = ({
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <BaseReactSelectCreatable
-            className={`react-select react-select-container ${
-              errors?.[name] ? "is-invalid" : ""
-            } ${className}`}
+            className={classNames(
+              className,
+              "react-select react-select-container",
+              {
+                "is-invalid": errors?.[name],
+              }
+            )}
             classNamePrefix="react-select"
             placeholder={placeholder}
             noOptionsMessage={() => "Bulunamadı"}
@@ -445,7 +549,6 @@ interface RSACProps extends ReactSelectAsyncCreatableProps<any, any, any> {
   control?: any;
   register?: any;
   errors?: any;
-  [x: string]: any;
 }
 
 const ReactSelectAsyncCreatable = ({
@@ -477,11 +580,15 @@ const ReactSelectAsyncCreatable = ({
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <BaseReactSelectAsyncCreatable
-            className={`react-select react-select-container ${
-              errors?.[name] ? "is-invalid" : ""
-            } ${className}`}
+            className={classNames(
+              className,
+              "react-select react-select-container",
+              {
+                "is-invalid": errors?.[name],
+              }
+            )}
             classNamePrefix="react-select"
             placeholder={placeholder}
             noOptionsMessage={() => "Bulunamadı"}
@@ -563,13 +670,15 @@ const ReactDatePicker = ({
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <BaseReactDatePicker
             disabled={disabled}
             autoComplete="off"
             placeholderText={placeholder}
             wrapperClassName="block"
-            className={`${errors?.name ? "is-invalid" : ""} ${className}`}
+            className={classNames(className, {
+              "is-invalid": errors?.[name],
+            })}
             dateFormat="dd.MM.yyyy"
             name={name}
             showYearDropdown
@@ -607,6 +716,8 @@ const ReactDatePicker = ({
 
 Input.Control = Control;
 Input.Select = Select;
+Input.Search = Search;
+Input.Button = Button;
 // Input.Check = Check;
 // Input.Range = Range;
 Input.ReactSelect = ReactSelect;

@@ -120,9 +120,26 @@ const Home = () => {
           register={register}
           errors={errors}
         />
-        <button className="button mx-auto block" type="submit">
+        <Input.Search
+          id="search"
+          name="search"
+          label="Arama"
+          className="input"
+          classNameLabel="label"
+          classNameSearch="opacity-0"
+          classNameContainer="mb-3"
+          register={register}
+          errors={errors}
+          required
+        />
+        <Input.Button
+          type="button"
+          className="mx-auto block"
+          classNameContainer="mb-3"
+          onClick={() => console.log("csdsdsasd")}
+        >
           Kaydet
-        </button>
+        </Input.Button>
       </form>
     </div>
   );
