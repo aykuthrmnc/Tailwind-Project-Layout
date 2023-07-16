@@ -19,7 +19,7 @@ import { Route } from "~/types";
 const MainLayout = lazy(() => import("~/layouts/Main"));
 const PrivateRoute = lazy(() => import("~/routes/PrivateRoute"));
 const Home = lazy(() => import("~/pages/Home"));
-const About = lazy(() => import("~/pages/About"));
+const Profile = lazy(() => import("~/pages/Profile"));
 const NotFound = lazy(() => import("~/pages/NotFound"));
 // const Login = lazy(() => import("~/pages/auth/Login"));
 // const Register = lazy(() => import("~/pages/auth/Register"));
@@ -35,8 +35,8 @@ const routes: Route[] = [
         element: <Home />,
       },
       {
-        path: "about",
-        element: <About />,
+        path: "profile",
+        element: <Profile />,
       },
     ],
   },

@@ -57,15 +57,9 @@ const Dropdown = ({
     {
       ...props,
       ref: menuRef,
-      className: classNames("dropdown", className, {
-        "dropdown-caret": caret,
-      }),
-      onMouseEnter: () => {
-        action === "hover" && setOpen(true);
-      },
-      onMouseLeave: () => {
-        action === "hover" && setOpen(false);
-      },
+      className: classNames("dropdown", className, { "dropdown-caret": caret }),
+      onMouseEnter: action === "hover" ? () => setOpen(true) : undefined,
+      onMouseLeave: action === "hover" ? () => setOpen(false) : undefined,
     },
     <DropdownContext.Provider value={data}>
       {item}

@@ -35,7 +35,7 @@ const Header = () => {
             <Dropdown.Menu className="end-0 -translate-x-3">
               <Dropdown.Item
                 as={NavLink}
-                to="/about"
+                to="/profile"
                 // className="aria-[current=page]:bg-gray-700 aria-[current=page]:text-white"
               >
                 Profil

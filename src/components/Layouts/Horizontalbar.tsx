@@ -72,7 +72,7 @@ const MenuItemWithChildren = ({
   }, [activeMenuItems, item]);
 
   return (
-    <Dropdown caret>
+    <Dropdown caret action="hover">
       <Dropdown.Item
         className={classNames({
           "bg-transparent hover:bg-transparent hover:text-gray-800 dark:hover:text-white":

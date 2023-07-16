@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import Input from "~/components/Input";
+import Input from "~/components/Custom/Input";
 import { LoginSchema } from "~/validation";
 
 const Home = () => {
@@ -124,8 +124,9 @@ const Home = () => {
         <Input.Control
           id="search"
           name="search"
-          label="Arama"
+          // label="Arama"
           type="search"
+          placeholder="Arama"
           className="input"
           classNameLabel="label"
           classNameSearch="opacity-0"
