@@ -46,6 +46,7 @@ const Home = () => {
           classNameContainer="mb-3"
           register={register}
           errors={errors}
+          showPasswordButton
           required
         />
         <Input.Select
@@ -120,15 +121,17 @@ const Home = () => {
           register={register}
           errors={errors}
         />
-        <Input.Search
+        <Input.Control
           id="search"
           name="search"
           label="Arama"
+          type="search"
           className="input"
           classNameLabel="label"
           classNameSearch="opacity-0"
           classNameContainer="mb-3"
           register={register}
+          showSearchButton
           errors={errors}
           required
         />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import BaseReactSelect, { Props as ReactSelectProps } from "react-select";
@@ -15,7 +15,7 @@ import BaseReactDatePicker, { registerLocale } from "react-datepicker";
 import tr from "date-fns/locale/tr";
 import "moment/locale/tr";
 import moment from "moment";
-import { FaSearch } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaSearch } from "react-icons/fa";
 import classNames from "classnames";
 registerLocale("tr", tr);
 
@@ -55,11 +55,15 @@ interface InputProps {
   type?: React.HTMLInputTypeAttribute;
   className?: string;
   classNameLabel?: string;
+  classNameSearch?: string;
   classNameContainer?: string;
   placeholder?: string;
   rows?: number;
   required?: boolean;
   disabled?: boolean;
+  searchIcon?: any;
+  showSearchButton?: boolean;
+  showPasswordButton?: boolean;
   register?: any;
   errors?: any;
 }
@@ -71,15 +75,21 @@ const Control = ({
   type = "text",
   className,
   classNameLabel,
+  classNameSearch,
   classNameContainer,
   placeholder,
   rows,
   disabled,
   required,
+  searchIcon,
+  showSearchButton = false,
+  showPasswordButton = false,
   register,
   errors,
   ...props
 }: InputProps) => {
+  const [inputType, setInputType] = useState(type);
+
   return (
     <div className={classNameContainer}>
       {label && (
@@ -87,19 +97,47 @@ const Control = ({
           {label} {required && <span className="text-sm text-red-600">*</span>}
         </label>
       )}
-      <input
-        id={id}
-        name={name}
-        type={type}
-        className={className}
-        placeholder={placeholder}
-        aria-invalid={errors?.[name] ? true : false}
-        disabled={disabled}
-        rows={rows}
-        {...(register && register(name))}
-        {...props}
-      />
-
+      <div className="relative">
+        {type === "search" && showSearchButton && (
+          <div
+            className={classNames(
+              classNameSearch,
+              "pointer-events-none absolute inset-y-0 flex items-center pl-2.5 opacity-70"
+            )}
+          >
+            {searchIcon ?? <FaSearch />}
+          </div>
+        )}
+        <input
+          id={id}
+          name={name}
+          type={inputType}
+          className={classNames(className, {
+            "pl-8": type === "search" && showSearchButton,
+            "pr-8": type === "password" && showPasswordButton,
+          })}
+          placeholder={placeholder}
+          aria-invalid={errors?.[name] ? true : false}
+          disabled={disabled}
+          rows={rows}
+          {...(register && register(name))}
+          {...props}
+        />
+        {type === "password" && showPasswordButton && (
+          <button
+            type="button"
+            title={inputType === "password" ? "Göster" : "Gizle"}
+            onClick={() =>
+              setInputType(inputType === "password" ? "text" : "password")
+            }
+            className={
+              "absolute inset-y-0 end-0 flex items-center pr-2.5 opacity-70"
+            }
+          >
+            {inputType === "password" ? <FaEye /> : <FaEyeSlash />}
+          </button>
+        )}
+      </div>
       {errors && (
         <ErrorMessage
           errors={errors}
@@ -163,80 +201,6 @@ const Select = ({
       >
         {children}
       </select>
-
-      {errors && (
-        <ErrorMessage
-          errors={errors}
-          name={name}
-          render={({ message }: any) => (
-            <div className="text-sm text-red-600">{message}</div>
-          )}
-        />
-      )}
-    </div>
-  );
-};
-
-interface SearchProps {
-  id?: string;
-  name: string;
-  label?: any;
-  className?: string;
-  classNameLabel?: string;
-  classNameSearch?: string;
-  classNameContainer?: string;
-  placeholder?: string;
-  required?: boolean;
-  disabled?: boolean;
-  searchIcon?: any;
-  register?: any;
-  errors?: any;
-}
-
-const Search = ({
-  id,
-  name,
-  label,
-  className,
-  classNameLabel,
-  classNameSearch,
-  classNameContainer,
-  placeholder,
-  disabled,
-  required,
-  searchIcon,
-  register,
-  errors,
-  ...props
-}: SearchProps) => {
-  return (
-    <div className={classNameContainer}>
-      {label && (
-        <label className={classNameLabel} htmlFor={id}>
-          {label} {required && <span className="text-sm text-red-600">*</span>}
-        </label>
-      )}
-      <div className="relative">
-        <div
-          className={classNames(
-            classNameSearch,
-            "pointer-events-none absolute inset-y-0 flex items-center pl-2.5 opacity-70"
-          )}
-        >
-          {searchIcon ?? <FaSearch />}
-        </div>
-        <input
-          id={id}
-          name={name}
-          type="search"
-          className={`${className} pl-8`}
-          placeholder={placeholder}
-          aria-invalid={errors?.[name] ? true : false}
-          disabled={disabled}
-          {...(register && register(name))}
-          {...props}
-        />
-      </div>
 
       {errors && (
         <ErrorMessage
@@ -679,6 +643,9 @@ const ReactDatePicker = ({
             className={classNames(className, {
               "is-invalid": errors?.[name],
             })}
+            // timeFormat="HH:mm"
+            // timeIntervals={15}
+            // timeCaption="time"
             dateFormat="dd.MM.yyyy"
             name={name}
             showYearDropdown
@@ -696,7 +663,6 @@ const ReactDatePicker = ({
             locale={tr}
             minDate={min ? new Date(min) : null}
             maxDate={max ? new Date(max) : null}
-            // dateFormat="DD-MM-yyyy"
           />
         )}
       />
@@ -716,7 +682,6 @@ const ReactDatePicker = ({
 
 Input.Control = Control;
 Input.Select = Select;
-Input.Search = Search;
 Input.Button = Button;
 // Input.Check = Check;
 // Input.Range = Range;
