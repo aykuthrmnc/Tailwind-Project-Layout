@@ -16,7 +16,7 @@ import { Route } from "~/types";
 // import CariEkstre from "~/pages/cari/cariEkstre";
 // import CariBakiye from "~/pages/cari/cariBakiye";
 
-const MainLayout = lazy(() => import("~/layouts/Main"));
+const MainLayout = lazy(() => import("~/layouts/MainLayout"));
 const PrivateRoute = lazy(() => import("~/routes/PrivateRoute"));
 const Home = lazy(() => import("~/pages/Home"));
 const Profile = lazy(() => import("~/pages/Profile"));
