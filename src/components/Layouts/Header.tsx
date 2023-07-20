@@ -1,5 +1,5 @@
 import useTheme from "~/hooks/useTheme";
-import { FaMoon, FaSun, FaUser } from "react-icons/fa";
+import { FaHamburger, FaMoon, FaSun, FaUser } from "react-icons/fa";
 // import { Link } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
 import Horizontalbar from "./Horizontalbar";
@@ -18,7 +18,10 @@ const Header = () => {
         >
           <span className="text-xl">AYKUTHRMNC</span>
         </Link>
-        <nav className="order-last flex basis-full flex-wrap items-center justify-center gap-2 lg:order-none lg:ml-4 lg:basis-auto lg:pl-4">
+        <nav
+          id="navbar"
+          className="order-last flex basis-full flex-wrap items-center justify-center gap-2 lg:order-none lg:ml-4 lg:basis-auto lg:pl-4"
+        >
           <Horizontalbar menuItems={DENEME_MENU} />
         </nav>
         <div className="mb-4 ms-auto flex md:mb-0">
@@ -28,11 +31,11 @@ const Header = () => {
           >
             {theme === "dark" ? <FaSun /> : <FaMoon />}
           </button>
-          <Dropdown>
-            <Dropdown.Item className="justify-center bg-transparent hover:bg-transparent  hover:text-gray-800 dark:hover:text-white">
+          <Dropdown placement="bottom-end">
+            <Dropdown.Button className="justify-center bg-transparent hover:bg-transparent  hover:text-gray-800 dark:hover:text-white">
               <FaUser />
-            </Dropdown.Item>
-            <Dropdown.Menu className="end-0 -translate-x-3">
+            </Dropdown.Button>
+            <Dropdown.Menu>
               <Dropdown.Item
                 as={NavLink}
                 to="/profile"

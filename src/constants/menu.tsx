@@ -18,19 +18,19 @@ import {
 import { BsHouseDoorFill } from "react-icons/bs";
 
 export const DENEME_MENU: MenuItemTypes[] = [
-  {
-    key: "anasayfa",
-    label: "AykutHrmnc",
-    isTitle: true,
-    icon: (
-      <FaCalculator
-        size="32"
-        color="var(--custom-color-100)"
-        className="me-2"
-      />
-    ),
-    url: "",
-  },
+  // {
+  //   key: "anasayfa",
+  //   label: "AykutHrmnc",
+  //   isTitle: true,
+  //   icon: (
+  //     <FaCalculator
+  //       size="32"
+  //       color="var(--custom-color-100)"
+  //       className="me-2"
+  //     />
+  //   ),
+  //   url: "",
+  // },
   {
     key: "anasayfa",
     label: "Anasayfa",

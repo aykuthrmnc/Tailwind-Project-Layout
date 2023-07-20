@@ -48,42 +48,6 @@ export interface Auth {
   theme: Theme;
 }
 
-interface Permissions {
-  yetkili_Mi?: boolean;
-  belge_Onay_Red_Yapabilir?: boolean;
-  belge_Iptal_Edebilir?: boolean;
-  belge_Iade_Yapabilir?: boolean;
-  belgeleri_Gorebilir?: boolean;
-  odeme_Alabilir?: boolean;
-  gun_Basi_Sonu_Yapabilir?: boolean;
-  raporlari_Kullanabilir?: boolean;
-  menu_Grubu_Ekleyebilir?: boolean;
-  menu_Grubu_Duzenleyebilir?: boolean;
-  menu_Grubu_Silebilir?: boolean;
-  menu_Item_Ekleyebilir?: boolean;
-  menu_Item_Duzenleyebilir?: boolean;
-  menu_Item_Silebilir?: boolean;
-  menu_Item_Tasiyabilir?: boolean;
-  masa_Ekleyebilir?: boolean;
-  masa_Duzenleyebilir?: boolean;
-  masa_Silebilir?: boolean;
-  masa_Tasiyabilir?: boolean;
-  masa_Grubu_Ekleyebilir?: boolean;
-  masa_Grubu_Duzenleyebilir?: boolean;
-  masa_Grubu_Silebilir?: boolean;
-  siparisi_Iade_Alabilir?: boolean;
-  siparisi_Iptal_Edebilir?: boolean;
-  siparisi_Ikram_Edebilir?: boolean;
-  siparisi_Satis_Yapabilir?: boolean;
-  sirket_Kullanicilari_Listeleyebilir?: boolean;
-  sirket_Kullanici_Ekleyebilir?: boolean;
-  sirket_Kullanici_Duzenleyebilir?: boolean;
-  sirket_Kullanici_Silebilir?: boolean;
-  rol_Ekleyebilir?: boolean;
-  rol_Duzenleyebilir?: boolean;
-  rol_Silebilir?: boolean;
-}
-
 // ! REDUX - CART
 export interface CartData {
   id: any;

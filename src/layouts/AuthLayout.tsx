@@ -12,7 +12,7 @@ const AuthLayout = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="container mx-auto flex-1 p-5">
+      <div className="container mx-auto flex-1 py-5">
         <Outlet />
       </div>
     </div>

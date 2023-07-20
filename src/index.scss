@@ -8,16 +8,56 @@ body {
   @apply bg-white dark:bg-gray-800;
 }
 
-@layer utilities {
-  .filter-none {
-    filter: none;
-  }
-  .filter-grayscale {
-    filter: grayscale(100%);
-  }
-}
+// @layer utilities {
+//   .filter-none {
+//     filter: none;
+//   }
+//   .filter-grayscale {
+//     filter: grayscale(100%);
+//   }
+// }
 
 @layer components {
+  // // OLD
+  // .btn {
+  //   @apply inline-flex items-center rounded-lg p-4 transition-colors duration-300 hover:text-white;
+  // }
+
+  // .nav-link {
+  //   @apply flex h-10 w-full items-center rounded px-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white;
+  // }
+
+  // .nav-link.active {
+  //   @apply bg-gray-600 text-white;
+  // }
+
+  // .slider-item {
+  //   @apply flex w-full flex-col items-center rounded border px-4 py-5 transition-colors;
+  // }
+
+  // .sidebar {
+  //   @apply invisible absolute inset-0 top-15 z-50 flex w-full flex-shrink-0 scale-90 flex-col overflow-y-auto border-r border-gray-100 bg-white p-2 opacity-0 transition-[opacity,transform] duration-1000 dark:divide-gray-800 dark:border-gray-800 dark:bg-gray-700 lg:visible lg:relative lg:top-0 lg:flex lg:w-96 lg:scale-100 lg:overflow-visible lg:pr-5 lg:opacity-100;
+  // }
+
+  // .sidebar.active {
+  //   @apply visible scale-100 opacity-100;
+  // }
+
+  // .buton {
+  //   @apply rounded bg-blue-500 px-4 py-2 transition-colors duration-300 hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-700/50;
+  // }
+  // .card {
+  //   background-color: theme("colors.white");
+  //   border-radius: theme("borderRadius.md");
+  //   box-shadow: theme("boxShadow.sm");
+  //   color: theme("colors.black");
+  // }
+  // .card-body {
+  //   padding: theme("spacing.4");
+  // }
+
+  // // MAIN
+
   .label {
     @apply mb-1 block dark:text-white;
   }
@@ -34,86 +74,60 @@ body {
   }
 
   .dropdown {
-    @apply relative inline-block;
+    @apply relative;
   }
 
   .dropdown-menu {
-    @apply absolute z-50 min-w-full pt-1 text-gray-700;
+    @apply z-50 min-w-[8rem] text-gray-700;
   }
 
   // .dropdown-submenu {
   //   @apply left-full top-0 ps-1;
   // }
 
+  .dropdown-button {
+    @apply flex w-full items-center justify-between gap-3 whitespace-nowrap bg-gray-200 px-3 py-2 hover:bg-gray-700 hover:text-white;
+  }
+
   .dropdown-item {
-    @apply flex w-full items-center justify-between gap-3 whitespace-nowrap bg-gray-200 px-3 py-2 text-left hover:bg-gray-700 hover:text-white;
+    @apply flex w-full items-center justify-between gap-3 whitespace-nowrap bg-gray-200 px-3 py-2 hover:bg-gray-700 hover:text-white;
   }
 
-  .btn {
-    @apply inline-flex items-center rounded-lg p-4 transition-colors duration-300 hover:text-white;
-  }
+  // .btn {
+  //   @apply inline-flex items-center rounded-lg p-4 transition-colors duration-300 hover:text-white;
+  // }
 
-  .nav-link {
-    @apply flex h-10 w-full items-center rounded px-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white;
-  }
+  // .modal {
+  //   @apply invisible fixed inset-0 z-50 flex items-center justify-center bg-deneme/60 opacity-0;
+  // }
 
-  .nav-link.active {
-    @apply bg-gray-600 text-white;
-  }
+  // .modal.active {
+  //   @apply visible opacity-100;
+  // }
 
-  //   .modal {
-  //     @apply invisible fixed inset-0 z-50 flex items-center justify-center bg-deneme/60 opacity-0;
-  //   }
-
-  //   .modal.active {
-  //     @apply visible opacity-100;
-  //   }
-
-  //   .modal-content {
-  //     @apply min-w-[600px] max-w-full rounded bg-white p-10 dark:bg-gray-900;
-  //   }
-
-  .slider-item {
-    @apply flex w-full flex-col items-center rounded border px-4 py-5 transition-colors;
-  }
-
-  .sidebar {
-    @apply invisible absolute inset-0 top-15 z-50 flex w-full flex-shrink-0 scale-90 flex-col divide-y divide-gray-100 overflow-y-auto border-r border-gray-100 bg-white p-2 opacity-0 transition-[opacity,transform] duration-1000 dark:divide-gray-800 dark:border-gray-800 dark:bg-gray-800 lg:visible lg:relative lg:top-0 lg:flex lg:w-64 lg:scale-100 lg:overflow-visible lg:pr-5 lg:opacity-100;
-  }
-
-  .sidebar.active {
-    @apply visible scale-100 opacity-100;
-  }
-
-  .buton {
-    @apply rounded bg-blue-500 px-4 py-2 transition-colors duration-300 hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-700/50;
-  }
-
-  .card {
-    background-color: theme("colors.white");
-    border-radius: theme("borderRadius.md");
-    box-shadow: theme("boxShadow.sm");
-    color: theme("colors.black");
-  }
-  .card-body {
-    padding: theme("spacing.4");
-  }
+  // .modal-content {
+  //   @apply min-w-[600px] max-w-full rounded bg-white p-10 dark:bg-gray-900;
+  // }
 }
 
 // .dropdown > .dropdown-item:only-child {
 //   justify-content: center;
 // }
 
-.dropdown-menu > *:first-child,
-.dropdown-menu > *:first-child > .dropdown-item {
+.dropdown-menu > .dropdown-item:first-child,
+.dropdown-menu > .dropdown:first-child > :is(.dropdown-item, .dropdown-button) {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
 
-.dropdown-menu > *:last-child,
-.dropdown-menu > .dropdown:last-child > .dropdown-item {
+.dropdown-menu > .dropdown-item:last-child,
+.dropdown-menu > .dropdown:last-child > :is(.dropdown-item, .dropdown-button) {
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
+}
+
+.dropdown > .dropdown-menu {
+  padding: 0.125rem 0;
 }
 
 .dropdown > .dropdown-menu .dropdown {
@@ -121,13 +135,10 @@ body {
 }
 
 .dropdown > .dropdown-menu .dropdown > .dropdown-menu {
-  left: 100%;
-  top: 0;
-  padding-left: 0.25rem;
-  padding-top: 0;
+  padding: 0 0.125rem;
 }
 
-.dropdown.dropdown-caret > .dropdown-item::after {
+.dropdown.dropdown-toggle > .dropdown-button::after {
   display: inline-block;
   position: relative;
   content: "";
@@ -142,7 +153,7 @@ body {
   border-bottom: 2px solid;
 }
 
-.dropdown > .dropdown-menu .dropdown > .dropdown-item::after {
+.dropdown > .dropdown-menu .dropdown.dropdown-toggle > .dropdown-button::after {
   display: inline-block;
   position: relative;
   content: "";

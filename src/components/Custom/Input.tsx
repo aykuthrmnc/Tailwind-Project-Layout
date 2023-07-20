@@ -228,7 +228,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <div className={classNameContainer}>
-      <button className={classNames(className, "button")} {...props}>
+      <button className={classNames(className)} {...props}>
         {children}
       </button>
     </div>

@@ -50,48 +50,27 @@ const MenuItem = ({ item }: { item: MenuItemTypes }) => (
 const MenuItemWithChildren = ({
   item,
   direction = "down",
-  activeMenuItems,
-  toggleMenu,
-  setActiveMenuItems,
 }: {
   item: MenuItemTypes;
   direction?: "end" | "down";
-  activeMenuItems?: any;
-  toggleMenu?: any;
-  setActiveMenuItems?: any;
 }) => {
-  const [open, setOpen] = useState(activeMenuItems.includes(item.key));
-
-  const toggle = () => {
-    setOpen(!open);
-    if (toggleMenu) toggleMenu(item, !open);
-  };
-
-  useEffect(() => {
-    setOpen(activeMenuItems!.includes(item.key));
-  }, [activeMenuItems, item]);
-
   return (
-    <Dropdown caret action="hover">
-      <Dropdown.Item
+    <Dropdown
+      caret
+      placement={direction === "down" ? "bottom-start" : "right-start"}
+    >
+      <Dropdown.Button
         className={classNames({
           "bg-transparent hover:bg-transparent hover:text-gray-800 dark:hover:text-white":
             direction === "down",
         })}
       >
         {item?.icon} {item?.label}
-      </Dropdown.Item>
+      </Dropdown.Button>
       <Dropdown.Menu>
         {item?.children?.map((subItem, key) =>
           subItem?.children ? (
-            <MenuItemWithChildren
-              key={key}
-              item={subItem}
-              direction="end"
-              toggleMenu={toggleMenu}
-              activeMenuItems={activeMenuItems}
-              setActiveMenuItems={setActiveMenuItems}
-            />
+            <MenuItemWithChildren key={key} item={subItem} direction="end" />
           ) : (
             <Dropdown.Item key={key} as={NavLink} to={subItem?.url}>
               {subItem?.icon} {subItem?.label}
@@ -105,25 +84,11 @@ const MenuItemWithChildren = ({
 };
 
 const Horizontalbar = ({ menuItems }: { menuItems: MenuItemTypes[] }) => {
-  const location = useLocation();
-  const [activeMenuItems, setActiveMenuItems] = useState<Array<string>>([]);
   // const [isOpen, setIsOpen] = useState(false);
   // const toggle = () => setIsOpen(!isOpen);
 
   //   const theme = useSelector((state: RootState) => state.auth.theme);
   //   const { companyName } = useSelector((state: RootState) => state.auth.user)!;
-
-  const toggleMenu = (menuItem: MenuItemTypes, show: boolean) => {
-    if (show)
-      setActiveMenuItems([
-        menuItem?.key,
-        ...findAllParent(menuItems, menuItem),
-      ]);
-  };
-
-  useEffect(() => {
-    setActiveMenuItems([]);
-  }, [location]);
 
   return (
     <>
@@ -131,12 +96,7 @@ const Horizontalbar = ({ menuItems }: { menuItems: MenuItemTypes[] }) => {
         <React.Fragment key={key}>
           {!item.isTitle &&
             (item.children ? (
-              <MenuItemWithChildren
-                item={item}
-                toggleMenu={toggleMenu}
-                activeMenuItems={activeMenuItems}
-                setActiveMenuItems={setActiveMenuItems}
-              />
+              <MenuItemWithChildren item={item} />
             ) : (
               <MenuItem item={item} />
             ))}
